@@ -1,5 +1,5 @@
 resource "aws_security_group" "sg" {
-  vpc_id = aws_vpc.new-vpc.id
+  vpc_id = var.vpc_id
 
   egress {
     from_port       = 0
@@ -53,7 +53,7 @@ resource "aws_eks_cluster" "cluster" {
   enabled_cluster_log_types = ["api", "audit"]
 
   vpc_config {
-    subnet_ids         = aws_subnet.subnets[*].id
+    subnet_ids         = var.subnet_ids
     security_group_ids = [aws_security_group.sg.id]
   }
   depends_on = [
